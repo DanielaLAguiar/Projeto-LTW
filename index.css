@@ -1,0 +1,190 @@
+h1 {
+  font-size: 1600%;
+  letter-spacing: 25px;
+  font-family: sans-serif;
+  font-variant: small-caps;
+  text-align: center;
+  margin-bottom: 2cm;
+  padding: 1cm;
+  border-style: solid;
+  border-width: 10px;
+  border-radius: 10px;
+  border-style: dashed;
+  border-color: burlywood;
+  margin-top: 0;
+  color: saddlebrown;
+  text-decoration: underline dashed saddlebrown;
+  background: linen;
+}
+
+h2 {
+  font-family: sans-serif;
+  font-variant: small-caps;
+  margin: 0;
+}
+
+#autenticacao {
+  line-height: 1cm;
+  border-width: 7px;
+  border-style: dashed;
+  border-radius: 10px;
+  border-color: burlywood;
+  padding: 5px;
+  margin:auto;
+  width: 12cm;
+  height: 3.5cm;
+  text-align: center;
+  color: saddlebrown;
+  font-family: sans-serif;
+  margin-top: 1cm;
+}
+
+#configuracao {
+  line-height: 1cm;
+  border-width: 7px;
+  border-style: dashed;
+  border-radius: 10px;
+  border-color: burlywood;
+  padding: 5px;
+  margin:auto;
+  width: 12cm;
+
+  text-align: center;
+  color: saddlebrown;
+  font-family: sans-serif;
+  margin-top: 1cm;
+
+}
+
+#comandos {
+  line-height: 1cm;
+  border-width: 7px;
+  border-style: dashed;
+  border-radius: 10px;
+  border-color: burlywood;
+  padding: 5px;
+  margin:auto;
+  width: 12cm;
+  height: 3.5cm;
+  text-align: center;
+  color: saddlebrown;
+  font-family: sans-serif;
+  margin-top: 1cm;
+}
+
+.title {
+  width:  35%;
+  height: 100%;
+  float: left;
+  line-height: 130px;
+  font-family: sans-serif;
+  font-variant: small-caps;
+  font-size: 150%;
+  font-weight: bold;
+}
+
+.button {
+  float: left;
+  width: 3.5cm;
+  height: 50px;
+  margin: 5px;
+  line-height: 50px;
+  text-align: center;
+  background: linen;
+  color: saddlebrown;
+  border-radius: 10px;
+  border-width: 2px;
+  border-style: outset; 
+}
+
+#estado {
+  line-height: 1cm;
+  border-width: 7px;
+  border-style: dashed;
+  border-radius: 10px;
+  border-color: burlywood;
+  padding: 5px;
+  margin:auto;
+  width: 11cm;
+  text-align: center;
+  color: saddlebrown;
+  font-family: sans-serif;
+  margin-top: 1cm;
+}
+
+#tabuleiro {
+  display: none;
+  flex-wrap: wrap;
+  flex-direction: column;
+  justify-content: space-around;
+  align-content: space-around;
+  width: 25cm;
+  height: 10cm;
+  background-color: burlywood;
+  border-radius: 10px;
+  margin: auto;
+  margin-bottom: 1cm;
+  margin-top: 1cm;
+  border-width: 7px;
+  border-style: outset;
+  border-color: saddlebrown;
+}
+
+.cavidades {
+  width: 2.5cm;
+  height: 4cm;
+  background-color: saddlebrown;
+  display: inline-block;
+  border-radius: 100px;
+  border-style: inset;
+  border-width: 7px;
+  border-color: peru;
+}
+
+#armazem1, #armazem2 {
+  width: 3cm;
+  height: 9cm;
+}
+
+.peca {
+  width: 0.5cm;
+  height: 1cm;
+  border-radius: 200px;
+  background-color: lightsalmon;
+  margin: 0.5cm;
+  margin-top: 2cm;
+  transform: rotate(-25deg);
+  border-width: 2px;
+  border-style: solid;
+  border-color: peachpuff;
+}
+
+input {
+  border-radius: 5px;
+  border-color: burlywood;
+  color: saddlebrown;
+}
+
+select {
+  border-radius: 5px;
+  border-color: burlywood;
+  color: saddlebrown;
+}
+
+#jogar {
+  width: 11.6cm;
+  height: 3cm;
+  margin: 5px;
+  line-height: 2.8cm;
+  text-align: center;
+  background: linen;
+  color: saddlebrown;
+  border-radius: 10px;
+  border-width: 3px;
+  border-style: dashed; 
+  border-color: saddlebrown;
+  font-variant: small-caps;
+  font-size:500%;
+  margin-top:1cm;
+  cursor: pointer;
+}

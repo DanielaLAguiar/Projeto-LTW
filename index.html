@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang=pt>
+  <head>
+    <meta charset="UTF-8">     
+    <title>Mancala</title>
+    <link rel="stylesheet" href="index.css">
+    <script src="index.js"></script>
+  </head>
+
+  <body>
+    
+    <h1>
+      Mancala
+    </h1>
+
+    <div id=autenticacao>
+      <h2>
+        Autenticação
+      </h2>
+      Nome de utilizador: <input type="text"> <br>
+      Password: <input type="password"> 
+    </div>
+
+    <div id=configuracao>
+      <h2>
+        Configuração
+      </h2>
+      Escolha o número de cavidades em cada lado do tabuleiro:
+      <input type=number onblur="getVal()"> <br>
+      Escolha o número inicial de sementes por cavidade:
+      <input type=number> <br>
+      Pretende jogar contra o computador ou contra outro jogador:
+      <select>
+        <option>Computador</option>
+        <option>Jogador</option>
+      </select> <br>
+      Escolha a sua dificuldade:
+      <select>
+        <option value>Fácil</option>
+        <option value>Normal</option>
+        <option value>Difícil</option>
+      </select> <br>
+      <div id=jogar onclick="IniciarJogo()">
+        Jogar
+      </div>
+    </div>
+
+    <div id=comandos>
+      <div class=title>
+        Comandos
+      </div>
+      <div class=button>Instruções</div>
+      <div class=button>Iniciar jogo</div>
+      <div class=button>Desistir</div>
+      <div class=button>Classificações</div>
+    </div>
+
+    <div id=estado>
+      <h2>
+        Estado do jogo
+      </h2>
+      Número de sementes no armazem do Jogador 1: <br>
+      Número de sementes no armazem do Jogador 2:
+    </div>
+
+    <div id=tabuleiro>
+      <div class=cavidades id=armazem1> 
+        <div class=peca></div>
+      </div>
+      <div class=cavidades> </div>
+      <div class=cavidades> </div>
+      <div class=cavidades> </div>
+      <div class=cavidades> </div>
+      <div class=cavidades> </div>
+      <div class=cavidades> </div>
+      <div class=cavidades> </div>
+      <div class=cavidades> </div>
+      <div class=cavidades> </div>
+      <div class=cavidades> </div>
+      <div class=cavidades id=armazem2> </div>
+      
+    </div>
+      
+  </body>
+
+</html>
