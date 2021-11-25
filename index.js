@@ -2,6 +2,8 @@ const comandos=document.getElementById("comandos");
 const configuracao=document.getElementById("configuracao");
 const autenticacao=document.getElementById("autenticacao");
 const terminar=document.getElementById("terminar");
+const classificacao=document.getElementById("classificacao");
+const instrucoes=document.getElementById("instrucoes");
 
 function validateForm() {  
   const name=document.getElementById("autenticacao").elements["name"].value;  
@@ -30,6 +32,25 @@ function logout() {
   
 }
 
+classificacao.onclick=this.showClassificacao.bind(this);
+instrucoes.onclick=this.showInstrucoes.bind(this);
+
+function showClassificacao() {
+    const classificacaoText=document.getElementById("popClassificacao");
+  if(classificacaoText.style.display=="inline")
+    classificacaoText.style.display="none";
+  else
+    classificacaoText.style.display="inline"; 
+}
+
+function showInstrucoes() {
+  const instrucoesText=document.getElementById("popInstrucoes");
+  if(instrucoesText.style.display=="inline")
+    instrucoesText.style.display="none";
+  else
+    instrucoesText.style.display="inline"; 
+}
+
 function IniciarJogo() {
     const tabuleiro = document.getElementById("tabuleiro");
     const jogar = document.getElementById("jogar");
@@ -50,7 +71,7 @@ function getVal() {
   
     let text = "<div class=cavidades id=armazem1></div>";
     for (let i=0; i<nCavidades*2; i++) {
-      text+="<div class=cavidades> </div>";
+      text+="<br> <div class=cavidades> </div>";
     }
     text += "<div class=cavidades id=armazem1></div>";
   

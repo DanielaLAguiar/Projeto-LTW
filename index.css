@@ -49,7 +49,7 @@ h2 {
 }
 
 #comandos {
-  height: 3.5cm;
+  height: 1.8cm;
 }
 
 #estado {
@@ -60,19 +60,35 @@ input[type=button] {
   cursor: pointer;
 }
 
+#popInstrucoes, #popClassificacao {
+  display: none;
+  position: absolute;
+  background: saddlebrown;
+  color: white;
+  border-radius:10px;
+  padding: 0.5cm;
+  width: 8.5cm;
+  margin-left: 28cm;
+  margin-top: -2.2cm;
+  font-family: sans-serif;
+  text-align: center;
+  border-style: ridge;
+  border-width:6px;
+  border-color: burlywood;
+}
+
 .title {
-  width:  35%;
-  height: 100%;
   float: left;
-  line-height: 130px;
+  line-height: 1.5cm;
   font-family: sans-serif;
   font-variant: small-caps;
   font-size: 150%;
   font-weight: bold;
+  padding:5px;
 }
 
 .button {
-  float: left;
+  float: right;
   width: 3.5cm;
   height: 50px;
   margin: 5px;
