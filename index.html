@@ -8,20 +8,24 @@
   </head>
 
   <body>
-    
     <h1>
       Mancala
     </h1>
 
-    <div id=autenticacao>
+    <form class=popup id=autenticacao>
       <h2>
         Autenticação
       </h2>
-      Nome de utilizador: <input type="text"> <br>
-      Password: <input type="password"> 
+      Nome de utilizador: <input type="text" name="name"> <br>
+      Password: <input type="password" name="password"> <br>
+      <input type="button" value="Login" onclick="validateForm()">  
+    </form>
+
+    <div class=popup id=terminar>
+      <input type="button" id="logout" value="Logout" onclick="logout()">
     </div>
 
-    <div id=configuracao>
+    <div class=popup id=configuracao>
       <h2>
         Configuração
       </h2>
@@ -45,42 +49,41 @@
       </div>
     </div>
 
-    <div id=comandos>
-      <div class=title>
-        Comandos
-      </div>
-      <div class=button>Instruções</div>
-      <div class=button>Iniciar jogo</div>
-      <div class=button>Desistir</div>
-      <div class=button>Classificações</div>
+  <div class=popup id=comandos>
+    <div class=title>
+      Comandos
     </div>
+    <div class=button>Instruções</div>
+    <div class=button>Iniciar jogo</div>
+    <div class=button>Desistir</div>
+    <div class=button>Classificações</div>
+  </div>
 
-    <div id=estado>
-      <h2>
-        Estado do jogo
-      </h2>
-      Número de sementes no armazem do Jogador 1: <br>
-      Número de sementes no armazem do Jogador 2:
-    </div>
+  <div class=popup id=estado>
+    <h2>
+      Estado do jogo
+    </h2>
+    Número de sementes no armazem do Jogador 1: <br>
+    Número de sementes no armazem do Jogador 2:
+  </div>
 
-    <div id=tabuleiro>
-      <div class=cavidades id=armazem1> 
-        <div class=peca></div>
-      </div>
-      <div class=cavidades> </div>
-      <div class=cavidades> </div>
-      <div class=cavidades> </div>
-      <div class=cavidades> </div>
-      <div class=cavidades> </div>
-      <div class=cavidades> </div>
-      <div class=cavidades> </div>
-      <div class=cavidades> </div>
-      <div class=cavidades> </div>
-      <div class=cavidades> </div>
-      <div class=cavidades id=armazem2> </div>
-      
+  <div id=tabuleiro>
+    <div class=cavidades id=armazem1> 
+      <div class=peca></div>
     </div>
-      
+    <div class=cavidades> </div>
+    <div class=cavidades> </div>
+    <div class=cavidades> </div>
+    <div class=cavidades> </div>
+    <div class=cavidades> </div>
+    <div class=cavidades> </div>
+    <div class=cavidades> </div>
+    <div class=cavidades> </div>
+    <div class=cavidades> </div>
+    <div class=cavidades> </div>
+    <div class=cavidades id=armazem2> </div>
+    
+  </div>
   </body>
 
 </html>
