@@ -5,7 +5,7 @@ h1 {
   font-variant: small-caps;
   text-align: center;
   margin-bottom: 2cm;
-  padding: 1cm;
+  padding: 0cm;
   border-style: solid;
   border-width: 10px;
   border-radius: 10px;
@@ -137,16 +137,17 @@ input[type=button] {
 }
 
 .peca {
-  width: 0.5cm;
-  height: 1cm;
-  border-radius: 200px;
-  background-color: lightsalmon;
-  margin: 0.5cm;
-  margin-top: 2cm;
+  width: 0.25cm;
+  height: 0.6cm;
+  border-radius: 100px;
+  background-color: moccasin;
+  margin-top: 0.3cm;
+  margin-left: 0.25cm;
   transform: rotate(-25deg);
-  border-width: 2px;
+  border-width: 1.5px;
   border-style: solid;
-  border-color: peachpuff;
+  border-color: darksalmon;
+  display: inline-block;
 }
 
 input {
