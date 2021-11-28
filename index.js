@@ -16,33 +16,6 @@ instrucoes.onclick=this.showInstrucoes.bind(this);
 iniciarJogo.onclick=this.IniciarJogo.bind(this);
 desistir.onclick=this.terminarJogo.bind(this);
 
-class Jogo {
-  constructor(cavidades, sementes) {
-    this.cavidades=cavidades;
-    this.sementes=sementes;
-  }
-  
-  setTabuleiro() {
-    const arm1=document.createElement('div');
-    const arm2=document.createElement('div');
-    const feij=document.createElement('span');
-    arm1.className='cavidades';
-    arm2.className='cavidades';
-    arm1.id="armazem1";
-    arm2.id="armazem2";
-    feij.className='peca';
-    tabuleiro.appendChild(arm1);
-    for(let i=0; i<Number(this.cavidades)*2; i++) {
-      let cav=document.createElement('div');
-      cav.className='cavidades';
-      tabuleiro.appendChild(cav);
-      for(let j=0; j<Number(this.sementes);j++) {
-        cav.appendChild(feij.cloneNode());
-      }
-    }
-    tabuleiro.appendChild(arm2);
-  }
-}
 
 function login() {  
   const name=document.getElementById("autenticacao").elements["name"].value;  
@@ -86,6 +59,72 @@ function showInstrucoes() {
     instrucoesText.style.display="inline"; 
 }
 
+class Jogo {
+  constructor(cavidades, sementes) {
+    this.cavidades=cavidades;
+    this.sementes=sementes;
+  }
+  
+  setTabuleiro() {
+    const arm1=document.createElement('div');
+    const arm2=document.createElement('div');
+    const feij=document.createElement('span');
+    arm1.className='cavidades';
+    arm2.className='cavidades';
+    arm1.id="armazem1";
+    arm2.id="armazem2";
+    feij.className='peca';
+    tabuleiro.appendChild(arm1);
+    for(let i=0; i<Number(this.cavidades)*2; i++) {
+      let cav=document.createElement('div');
+      cav.className='cavidades';
+      tabuleiro.appendChild(cav);
+      for(let j=0; j<Number(this.sementes);j++) {
+        cav.appendChild(feij.cloneNode());
+      }
+    }
+    tabuleiro.appendChild(arm2);
+  }
+    play() {
+      const cavidadesJogo=document.getElementsByClassName("cavidades");
+      const feij=document.createElement('span');
+      feij.className='peca';
+      
+      for(let i=2; i<cavidadesJogo.length; i+=2) {
+          cavidadesJogo[i].onclick=function() {
+            let n=cavidadesJogo[i].children.length;
+            cavidadesJogo[i].innerHTML="";
+            for(let j=0; j<n*2; j+=2) {
+              let temp=j;
+              if(i+1+j==cavidadesJogo.length-1) {
+                cavidadesJogo[cavidadesJogo.length-1].appendChild(feij.cloneNode());
+                temp=i+j-1;
+                while(temp>=1 && j<n*2-2) {
+                  cavidadesJogo[temp].appendChild(feij.cloneNode());
+                  temp-=2;
+                  j+=2;
+                  if(temp<1 && j<n*2-2){
+                    n=((n*2-2)-j)/2-1;
+                    j=-2;
+                    cavidadesJogo[2].appendChild(feij.cloneNode());
+                    if(i!=2) {
+                      cavidadesJogo[i].appendChild(feij.cloneNode());
+                      n--;
+                    }
+                  }
+                }
+              }
+              else {
+                console.log(j);
+                cavidadesJogo[i+2+j].appendChild(feij.cloneNode());
+              }             
+            }
+        }
+    }
+  
+  }
+}
+
 function IniciarJogo() {
     const jogo = new Jogo(nCavidades.valueAsNumber, nSementes.valueAsNumber);
     jogo.setTabuleiro();
@@ -94,6 +133,7 @@ function IniciarJogo() {
     tabuleiro.style.display="flex";
     estado.style.display="block";
     terminar.style.display="none";
+    jogo.play();
 }
 
 function terminarJogo() {
@@ -102,5 +142,5 @@ function terminarJogo() {
     configuracao.style.display="block";
     estado.style.display="none";
     tabuleiro.style.display="none";
-  tabuleiro.innerHTML="";
+    tabuleiro.innerHTML="";
 }
