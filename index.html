@@ -26,15 +26,16 @@
       <input type="button" id="logout" value="Logout" onclick="logout()">
     </div>
 
-    <div class=popup id=comandos>
-      <div class=title>
-        Comandos
-      </div>
-      <div class=button id=instrucoes>Instruções</div>
-      <div class=button id=classificacao>Classificações</div>
+  <div class=popup id=comandos>
+    <div class=title>
+      Comandos
     </div>
+    <div class=button id=instrucoes>Instruções</div>
 
-    <span id=popInstrucoes>O Mancala é uma família de jogos origem africana, conhecidos como jogos de semeadura, ou de contagem e captura. 
+    <div class=button id=classificacao>Classificações</div>
+  </div>
+
+  <span id=popInstrucoes>O Mancala é uma família de jogos origem africana, conhecidos como jogos de semeadura, ou de contagem e captura. 
     São jogados em tabuleiros com concavidades contendo grãos ou contas. No início do jogo os armazéns (de lado) estão vazios e as restantes 
     cavidades têm o mesmo número de sementes. Os jogadores semeiam as suas sementes alternadamente a partir de uma das suas cavidades. 
     O jogador recolhe todas as sementes de uma cavidade e coloca 1 em cada cavidade no sentido anti-horário. Volta a jogar se a última 
@@ -74,16 +75,19 @@
       </div>
     </div>
 
-    <div class=popup id=estado>
-      <h2>
-        Estado do jogo
-      </h2>
-      Número de sementes no armazem do Jogador 1: 0<br>
-      Número de sementes no armazem do Jogador 2: 0<br>
+  <div class=popup id=estado>
+    <h2>
+      Estado do jogo
+    </h2>
+    <span id=pontos1>Número de sementes no armazem do Jogador 1: 0</span><br>
+    <span id=pontos2>Número de sementes no armazem do Jogador 2: 0</span><br>
      <input type=button id=desistir value=Desistir>
-    </div>
+    
+  </div>
 
-    <div id=tabuleiro> </div>
+  <div id=tabuleiro>
+    
+  </div>
   
   </body>
 </html>

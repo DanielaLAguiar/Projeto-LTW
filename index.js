@@ -10,6 +10,8 @@ const iniciarJogo=document.getElementById("jogar");
 const desistir=document.getElementById("desistir");
 const tabuleiro=document.getElementById("tabuleiro");
 const estado=document.getElementById("estado");
+const pontos1=document.getElementById("pontos1");
+const pontos2=document.getElementById("pontos2");
 
 classificacao.onclick=this.showClassificacao.bind(this);
 instrucoes.onclick=this.showInstrucoes.bind(this);
@@ -94,34 +96,40 @@ class Jogo {
           cavidadesJogo[i].onclick=function() {
             let n=cavidadesJogo[i].children.length;
             cavidadesJogo[i].innerHTML="";
-            for(let j=0; j<n*2; j+=2) {
-              let temp=j;
-              if(i+1+j==cavidadesJogo.length-1) {
+            for(let j=1; j<=n; j++) {
+              if(i+j*2==cavidadesJogo.length) {
                 cavidadesJogo[cavidadesJogo.length-1].appendChild(feij.cloneNode());
-                temp=i+j-1;
-                while(temp>=1 && j<n*2-2) {
+                j++;
+                var temp=cavidadesJogo.length-3;
+                while(temp>=1 && j<=n) {
                   cavidadesJogo[temp].appendChild(feij.cloneNode());
                   temp-=2;
-                  j+=2;
-                  if(temp<1 && j<n*2-2){
-                    n=((n*2-2)-j)/2-1;
-                    j=-2;
-                    cavidadesJogo[2].appendChild(feij.cloneNode());
-                    if(i!=2) {
-                      cavidadesJogo[i].appendChild(feij.cloneNode());
-                      n--;
-                    }
+                  j++;
+                }
+                if(temp<1 && j<=n){
+                  n-=j;
+                  j=0;
+                  cavidadesJogo[2].appendChild(feij.cloneNode());
                   }
                 }
-              }
               else {
-                console.log(j);
-                cavidadesJogo[i+2+j].appendChild(feij.cloneNode());
+                cavidadesJogo[i+j*2].appendChild(feij.cloneNode());
               }             
             }
+            const armazem2=document.getElementById("armazem2");
+            const armazem1=document.getElementById("armazem1");
+            let pontosJogador1=armazem2.children.length;
+            let pontosJogador2=armazem1.children.length;
+            pontos1.innerHTML="Número de sementes no armazem do Jogador 1: " + pontosJogador1.toString(10);
+            pontos2.innerHTML="Número de sementes no armazem do Jogador 2: " + pontosJogador2.toString(10);
         }
     }
+  }
   
+  showPontuacao() {
+    const armazem2=document.getElementById("armazem2");
+    let pontosJogador1=armazem2.children.length;
+    console.log(pontosJogador1);
   }
 }
 
