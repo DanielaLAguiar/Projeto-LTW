@@ -12,6 +12,10 @@ const tabuleiro=document.getElementById("tabuleiro");
 const estado=document.getElementById("estado");
 const pontos1=document.getElementById("pontos1");
 const pontos2=document.getElementById("pontos2");
+const msgVitoria=document.getElementById("vitoria");
+const cavidadesJogo=document.getElementsByClassName("cavidades");
+const feij=document.createElement('span');
+feij.className='peca';
 
 classificacao.onclick=this.showClassificacao.bind(this);
 instrucoes.onclick=this.showInstrucoes.bind(this);
@@ -22,7 +26,7 @@ desistir.onclick=this.terminarJogo.bind(this);
 function login() {  
   const name=document.getElementById("autenticacao").elements["name"].value;  
   const password=document.getElementById("autenticacao").elements["password"].value;  
-    if (name=="Daniela" && password=="123"){
+    if (name=="" && password==""){
         comandos.style.display="block";
         configuracao.style.display="block";
         autenticacao.style.display="none";
@@ -88,17 +92,17 @@ class Jogo {
     tabuleiro.appendChild(arm2);
   }
     play() {
-      const cavidadesJogo=document.getElementsByClassName("cavidades");
-      const feij=document.createElement('span');
-      feij.className='peca';
-      
       for(let i=2; i<cavidadesJogo.length; i+=2) {
+         let replay=false;
           cavidadesJogo[i].onclick=function() {
             let n=cavidadesJogo[i].children.length;
             cavidadesJogo[i].innerHTML="";
             for(let j=1; j<=n; j++) {
               if(i+j*2==cavidadesJogo.length) {
                 cavidadesJogo[cavidadesJogo.length-1].appendChild(feij.cloneNode());
+                if(j==n) {
+                  replay=true;
+                }
                 j++;
                 var temp=cavidadesJogo.length-3;
                 while(temp>=1 && j<=n) {
@@ -114,22 +118,45 @@ class Jogo {
                 }
               else {
                 cavidadesJogo[i+j*2].appendChild(feij.cloneNode());
-              }             
+              } 
+              
+              if(j==n) {
+                if(cavidadesJogo[i+j*2].children.length==1) {
+                  cavidadesJogo[i+j*2].innerHTML="";
+                  let cj=cavidadesJogo[i+j*2-1].children.length;
+                  cavidadesJogo[i+j*2-1].innerHTML="";
+                  for(let h=0; h<=cj; h++) {
+                    cavidadesJogo[cavidadesJogo.length-1].appendChild(feij.cloneNode());
+                  }
+                }
+              }
             }
+            
             const armazem2=document.getElementById("armazem2");
             const armazem1=document.getElementById("armazem1");
             let pontosJogador1=armazem2.children.length;
             let pontosJogador2=armazem1.children.length;
             pontos1.innerHTML="Número de sementes no armazem do Jogador 1: " + pontosJogador1.toString(10);
             pontos2.innerHTML="Número de sementes no armazem do Jogador 2: " + pontosJogador2.toString(10);
+            
+            for(let k=2; k<cavidadesJogo.length;k+=2) {
+              if(cavidadesJogo[k].children.length!=0)
+                break;
+              if(k==cavidadesJogo.length-2 && Number(pontosJogador1)>Number(pontosJogador2)) {
+                vitoria();
+              }
+            }
+            
+            if(replay==false) {
+              console.log("my turn");
+            }
         }
-    }
+     }
   }
   
   showPontuacao() {
     const armazem2=document.getElementById("armazem2");
     let pontosJogador1=armazem2.children.length;
-    console.log(pontosJogador1);
   }
 }
 
@@ -144,6 +171,13 @@ function IniciarJogo() {
     jogo.play();
 }
 
+function vitoria() {
+  tabuleiro.style.display="none";
+  estado.style.display="none";
+  msgVitoria.style.display="block";
+  msgVitoria.onclick=this.terminarJogo.bind(this);
+}
+
 function terminarJogo() {
     terminar.style.display="block";
     comandos.style.display="block";
@@ -151,4 +185,5 @@ function terminarJogo() {
     estado.style.display="none";
     tabuleiro.style.display="none";
     tabuleiro.innerHTML="";
+    msgVitoria.style.display="none";
 }

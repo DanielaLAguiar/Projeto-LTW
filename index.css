@@ -179,3 +179,21 @@ select {
   margin-top:1cm;
   cursor: pointer;
 }
+
+#vitoria {
+  display: none;
+  background: saddlebrown;
+  color: white;
+  font-family: sans-serif;
+  text-align: center;
+  border-style: dashed;
+  border-width:6px;
+  border-color: burlywood;
+  width: 14cm;
+  margin: auto;
+  font-size:700%;
+  font-variant: small-caps;
+  cursor: pointer;
+  height: 3.5cm;
+  border-radius: 10px;
+}
