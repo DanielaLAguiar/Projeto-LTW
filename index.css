@@ -180,7 +180,7 @@ select {
   cursor: pointer;
 }
 
-#vitoria {
+#vitoria, #derrota {
   display: none;
   background: saddlebrown;
   color: white;

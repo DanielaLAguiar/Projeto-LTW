@@ -13,6 +13,7 @@ const estado=document.getElementById("estado");
 const pontos1=document.getElementById("pontos1");
 const pontos2=document.getElementById("pontos2");
 const msgVitoria=document.getElementById("vitoria");
+const msgDerrota=document.getElementById("derrota");
 const cavidadesJogo=document.getElementsByClassName("cavidades");
 const feij=document.createElement('span');
 feij.className='peca';
@@ -133,10 +134,10 @@ class Jogo {
             }
             
             const armazem2=document.getElementById("armazem2");
-            const armazem1=document.getElementById("armazem1");
             let pontosJogador1=armazem2.children.length;
-            let pontosJogador2=armazem1.children.length;
             pontos1.innerHTML="Número de sementes no armazem do Jogador 1: " + pontosJogador1.toString(10);
+            const armazem1=document.getElementById("armazem1");
+            let pontosJogador2=armazem1.children.length;
             pontos2.innerHTML="Número de sementes no armazem do Jogador 2: " + pontosJogador2.toString(10);
             
             for(let k=2; k<cavidadesJogo.length;k+=2) {
@@ -148,7 +149,7 @@ class Jogo {
             }
             
             if(replay==false) {
-              console.log("my turn");
+              jogadaIA();
             }
         }
      }
@@ -178,6 +179,13 @@ function vitoria() {
   msgVitoria.onclick=this.terminarJogo.bind(this);
 }
 
+function derrota() {
+  tabuleiro.style.display="none";
+  estado.style.display="none";
+  msgDerrota.style.display="block";
+  msgDerrota.onclick=this.terminarJogo.bind(this);
+}
+
 function terminarJogo() {
     terminar.style.display="block";
     comandos.style.display="block";
@@ -186,4 +194,65 @@ function terminarJogo() {
     tabuleiro.style.display="none";
     tabuleiro.innerHTML="";
     msgVitoria.style.display="none";
+}
+
+function jogadaIA() {
+  let possiveis= new Array();
+  for(let i=1; i<cavidadesJogo.length-1;i+=2) {
+    if(cavidadesJogo[i].children.length!=0)
+      possiveis.push(i);
+  }
+  
+  const random=Math.floor(Math.random() * possiveis.length);
+  const escolha=possiveis[random];
+  const n=cavidadesJogo[escolha].children.length;
+  cavidadesJogo[escolha].innerHTML="";
+  console.log(escolha);
+  
+  for(let j=1; j<=n; j++) {
+    if(escolha-j*2<=0) {
+      cavidadesJogo[0].appendChild(feij.cloneNode());
+      j++;
+      var temp=2;
+      while(temp<cavidadesJogo.length && j<=n) {
+        cavidadesJogo[temp].appendChild(feij.cloneNode());
+        temp+=2;
+        j++;
+      }
+      if(temp>=cavidadesJogo.length && j<=n){
+         n-=j;
+         j=0;
+         cavidadesJogo[cavidadesJogo.length-3].appendChild(feij.cloneNode());
+      }
+    }
+    else {
+      cavidadesJogo[escolha-j*2].appendChild(feij.cloneNode());
+    }
+    
+    if(j==n) {
+      if(cavidadesJogo[escolha-j*2].children.length==1) {
+        cavidadesJogo[escolha-j*2].innerHTML="";
+        let cj=cavidadesJogo[escolha-j*2+1].children.length;
+        cavidadesJogo[escolha-j*2+1].innerHTML="";
+        for(let h=0; h<=cj; h++) {
+          cavidadesJogo[0].appendChild(feij.cloneNode());
+        }
+      }
+   }
+  }
+  
+  const armazem2=document.getElementById("armazem2");
+  let pontosJogador1=armazem2.children.length;
+  pontos1.innerHTML="Número de sementes no armazem do Jogador 1: " + pontosJogador1.toString(10);
+  const armazem1=document.getElementById("armazem1");
+  let pontosJogador2=armazem1.children.length;
+  pontos2.innerHTML="Número de sementes no armazem do Jogador 2: " + pontosJogador2.toString(10);
+  
+  for(let k=1; k<cavidadesJogo.length;k+=2) {
+    if(cavidadesJogo[k].children.length!=0)
+        break;
+    if(k==cavidadesJogo.length-3 && Number(pontosJogador1)<=Number(pontosJogador2)) {
+        derrota();
+    }
+  }
 }
