@@ -6,6 +6,7 @@ const classificacao=document.getElementById("classificacao");
 const instrucoes=document.getElementById("instrucoes");
 const nCavidades=document.getElementById("cavidades");
 const nSementes=document.getElementById("sementes");
+const inicio=document.getElementById("inicio");
 const iniciarJogo=document.getElementById("jogar");
 const desistir=document.getElementById("desistir");
 const tabuleiro=document.getElementById("tabuleiro");
@@ -78,17 +79,6 @@ var string_out=function(i, replay) {
   cavidadesJogo[i].innerHTML="";
   
   for(let j=1; j<=n; j++) {
-    if(j==n) {
-      if(cavidadesJogo[i+j*2].children.length==0) {
-        let cj=cavidadesJogo[i+j*2-1].children.length;
-        cavidadesJogo[i+j*2].innerHTML="";
-        cavidadesJogo[i+j*2-1].innerHTML="";
-        for(let h=0; h<=cj; h++) {
-          setTimeout(move_string, 250*j*h, cavidadesJogo.length-1);
-        }
-        break;
-      }
-    }
     if(i+j*2==cavidadesJogo.length) {
       setTimeout(move_string, 250*j, cavidadesJogo.length-1);
       if(j==n) {
@@ -109,6 +99,17 @@ var string_out=function(i, replay) {
     }
     else {
       setTimeout(move_string, 250*j, i+j*2);
+    }
+    if(j==n) {
+      if(cavidadesJogo[i+j*2].children.length==0) {
+        let cj=cavidadesJogo[i+j*2-1].children.length;
+        cavidadesJogo[i+j*2].innerHTML="";
+        cavidadesJogo[i+j*2-1].innerHTML="";
+        for(let h=0; h<=cj; h++) {
+          setTimeout(move_string, 250*j*h, cavidadesJogo.length-1);
+        }
+        break;
+      }
     }
   }
             
@@ -187,6 +188,9 @@ function IniciarJogo() {
     tabuleiro.style.display="flex";
     estado.style.display="block";
     terminar.style.display="none";
+    if(inicio.value=="Adversário") {
+      setTimeout(jogadaIA(), 250);
+    }
     jogo.play();
 }
 
@@ -226,22 +230,9 @@ function jogadaIA() {
   const escolha=possiveis[random];
   let n=cavidadesJogo[escolha].children.length;
   cavidadesJogo[escolha].innerHTML="";
-  console.log(escolha);
   let color="darkred";
   
   for(let j=1; j<=n; j++) {
-    if(j==n) {
-      if(cavidadesJogo[escolha-j*2].children.length==0) {
-        cavidadesJogo[escolha-j*2].innerHTML="";
-        let cj=cavidadesJogo[escolha-j*2+1].children.length;
-        cavidadesJogo[escolha-j*2+1].innerHTML="";
-        for(let h=0; h<=cj; h++) {
-          setTimeout(move_string, 250*j, 0, color);
-        }
-        break;
-      }
-   }
-
    if(escolha-j*2<=0) {
       setTimeout(move_string, 250*j, 0, color);
       j++;
@@ -260,6 +251,17 @@ function jogadaIA() {
     else {
       setTimeout(move_string, 250*j, escolha-j*2, color);
     }
+    if(j==n) {
+      if(cavidadesJogo[escolha-j*2].children.length==0) {
+        cavidadesJogo[escolha-j*2].innerHTML="";
+        let cj=cavidadesJogo[escolha-j*2+1].children.length;
+        cavidadesJogo[escolha-j*2+1].innerHTML="";
+        for(let h=0; h<=cj; h++) {
+          setTimeout(move_string, 250*j, 0, color);
+        }
+        break;
+      }
+   }
   }
   
   const armazem2=document.getElementById("armazem2");
