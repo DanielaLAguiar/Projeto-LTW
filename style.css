@@ -102,6 +102,10 @@ input[type=button] {
   cursor: pointer;
 }
 
+.button:hover {
+  background: bisque; 
+}
+
 #tabuleiro {
   display: none;
   flex-wrap: wrap;
@@ -129,6 +133,11 @@ input[type=button] {
   border-style: inset;
   border-width: 7px;
   border-color: peru;
+}
+
+#meuLado:hover {
+  background: sandybrown;
+  cursor: pointer;
 }
 
 #armazem1, #armazem2 {
@@ -178,6 +187,10 @@ select {
   font-size:500%;
   margin-top:1cm;
   cursor: pointer;
+}
+
+#jogar:hover {
+  background: bisque;
 }
 
 #vitoria, #derrota {

@@ -17,6 +17,7 @@ const msgVitoria=document.getElementById("vitoria");
 const msgDerrota=document.getElementById("derrota");
 const cavidadesJogo=document.getElementsByClassName("cavidades");
 const feij=document.createElement('span');
+const classificacaoText=document.getElementById("popClassificacao");
 feij.className='peca';
 
 classificacao.onclick=this.showClassificacao.bind(this);
@@ -52,7 +53,6 @@ function logout() {
 }
 
 function showClassificacao() {
-    const classificacaoText=document.getElementById("popClassificacao");
   if(classificacaoText.style.display=="inline")
     classificacaoText.style.display="none";
   else
@@ -71,7 +71,6 @@ var move_string=function(n, color) {
   let feijtemp=feij.cloneNode();
   feijtemp.style.backgroundColor=color;
   cavidadesJogo[n].appendChild(feijtemp);
-  
 }
 
 var string_out=function(i, replay) {
@@ -124,7 +123,7 @@ var string_out=function(i, replay) {
     if(cavidadesJogo[k].children.length!=0)
       break;
     if(k==cavidadesJogo.length-2 && Number(pontosJogador1)>Number(pontosJogador2)) {
-      vitoria();
+      vitoria(pontosJogador1, pontosJogador2);
     }
   }
             
@@ -157,6 +156,9 @@ class Jogo {
         let feijtemp=feij.cloneNode();
         if(i%2==0) {
           feijtemp.style.backgroundColor="darkred";
+        }
+        else {
+          cav.id="meuLado";
         }
         cav.appendChild(feijtemp); 
       }
@@ -194,18 +196,25 @@ function IniciarJogo() {
     jogo.play();
 }
 
-function vitoria() {
+function vitoria(pontos1, pontos2) {
   tabuleiro.style.display="none";
   estado.style.display="none";
   msgVitoria.style.display="block";
+  let text=document.createTextNode("VITORIA! Jogador 1: " + pontos1.toString(10) +" Jogador 2: " + pontos2.toString(10));
+  classificacaoText.appendChild(text);
   msgVitoria.onclick=this.terminarJogo.bind(this);
+  
 }
 
-function derrota() {
+function derrota(pontos1, pontos2) {
   tabuleiro.style.display="none";
   estado.style.display="none";
   msgDerrota.style.display="block";
+  let text=document.createTextNode("DERROTA! Jogador 1: " + pontos1.toString(10) +" Jogador 2: " + pontos2.toString(10));
+  classificacaoText.appendChild(text);
   msgDerrota.onclick=this.terminarJogo.bind(this);
+  
+  
 }
 
 function terminarJogo() {
@@ -275,7 +284,7 @@ function jogadaIA() {
     if(cavidadesJogo[k].children.length!=0)
         break;
     if(k==cavidadesJogo.length-3 && Number(pontosJogador1)<=Number(pontosJogador2)) {
-        derrota();
+        derrota(pontosJogador1, pontosJogador2);
     }
   }
 }
