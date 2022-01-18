@@ -6,7 +6,7 @@ const port = 9040;
 
 const server = http.createServer( (req, res) => {
     
-    let filePath = __dirname + '/public/index.html';
+    let filePath = __dirname + '/index.html';
 
     fs.readFile(filePath, (err, data) => {
         res.statusCode = 200;
