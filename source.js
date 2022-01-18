@@ -20,27 +20,55 @@ const feij=document.createElement('span');
 const classificacaoText=document.getElementById("popClassificacao");
 feij.className='peca';
 
+
+
+const pvp=document.getElementById("pvp");
+let nome, password;
+let game, eventSrc, opponent, multiplayerStatus, leaveButton;
+let users = [];
+
+class User {
+  constructor(username, pps) {
+    this.username=username;
+    this.pps=pps;
+  }
+}
+
 classificacao.onclick=this.showClassificacao.bind(this);
 instrucoes.onclick=this.showInstrucoes.bind(this);
 iniciarJogo.onclick=this.IniciarJogo.bind(this);
 desistir.onclick=this.terminarJogo.bind(this);
 
 
+function newUser() {
+  nome=document.getElementById("autenticacao").elements["name"].value;  
+  password=document.getElementById("autenticacao").elements["password"].value; 
+  let req = register(nome,password);
+  if (!req.ok) {
+
+	}
+  let thisUser = new User(nome, password);
+  users.push(thisUser);
+  login();
+}
+
+
 function login() {  
-  const name=document.getElementById("autenticacao").elements["name"].value;  
-  const password=document.getElementById("autenticacao").elements["password"].value;  
-    if (name=="" && password==""){
-        comandos.style.display="block";
-        configuracao.style.display="block";
-        autenticacao.style.display="none";
-        const node = document.createTextNode("Bem vindx " + name + "! " + "\u2665");
-        const logout = document.getElementById("logout");
-        terminar.insertBefore(node,logout);
-        terminar.style.display="block";
+  nome=document.getElementById("autenticacao").elements["name"].value;  
+  password=document.getElementById("autenticacao").elements["password"].value; 
+  for(let i=0; i<users.length; i++) {
+    if (nome==users[i].username && password==users[i].pps){
+      comandos.style.display="block";
+      configuracao.style.display="block";
+      autenticacao.style.display="none";
+      const node = document.createTextNode("Bem vindx " + users[i].username + "! " + "\u2665");
+      const logoutButton = document.getElementById("logout");
+      logoutButton.parentNode.insertBefore(node,logoutButton);
+      terminar.style.display="block";
+      return;
     }
-    else {
-      alert("Login invalido!");
-    } 
+  }
+    alert("Login invalido!");
 }
 
 function logout() {
@@ -190,10 +218,16 @@ function IniciarJogo() {
     tabuleiro.style.display="flex";
     estado.style.display="block";
     terminar.style.display="none";
-    if(inicio.value=="Adversário") {
-      setTimeout(jogadaIA(), 250);
+    if(pvp.value=="Jogador") {
+      setUpMultiplayer(nCavidades.valueAsNumber, nSementes.valueAsNumber);
     }
-    jogo.play();
+    else if (pvp.value="Computador") {
+      if(inicio.value=="Adversário") {
+        setTimeout(jogadaIA(), 250);
+      }
+    
+      jogo.play();
+    }
 }
 
 function vitoria(pontos1, pontos2) {
@@ -213,8 +247,6 @@ function derrota(pontos1, pontos2) {
   let text=document.createTextNode("DERROTA! Jogador 1: " + pontos1.toString(10) +" Jogador 2: " + pontos2.toString(10));
   classificacaoText.appendChild(text);
   msgDerrota.onclick=this.terminarJogo.bind(this);
-  
-  
 }
 
 function terminarJogo() {
@@ -287,4 +319,23 @@ function jogadaIA() {
         derrota(pontosJogador1, pontosJogador2);
     }
   }
+}
+
+async function setUpMultiplayer(cavidades, sementes) {
+	let req = await join(nome, password, cavidades, sementes);
+	if (req.ok) {
+		let data = await req.json();
+		game = data.game;
+		multiplayerStatus.textContent = "Waiting for a player to join";
+		eventSrc = await update(nome, game, serverUpdate, serverError);
+	} else {
+		alert("An error ocurred while creating a game");
+	}
+}
+
+async function notifyServer(i) {
+	let req = await notify(nome, password, game, i);
+	if (!req.ok) {
+		alert("Something went wrong");
+	}
 }

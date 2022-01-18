@@ -4,7 +4,7 @@
     <meta charset="UTF-8">     
     <title>Mancala</title>
     <link rel="stylesheet" href="style.css">
-    <script src="source.js"></script>
+    
   </head>
 
   <body>
@@ -19,8 +19,10 @@
       </h2>
       Nome de utilizador: <input type="text" name="name"> <br>
       Password: <input type="password" name="password"> <br>
-      <input type="button" value="Login" onclick="login()">  
+      <input type="button" value="Novo utilizador" onclick="newUser()"></input>
+      <input type="button" value="Login" onclick="login()"></input>
     </form>
+    
 
     <div class=popup id=terminar>
       <input type="button" id="logout" value="Logout" onclick="logout()">
@@ -54,7 +56,7 @@
       Escolha o número inicial de sementes por cavidade (1-8):
       <input type=number id=sementes min="1" max="8"> <br>
       Pretende jogar contra o computador ou contra outro jogador:
-      <select>
+      <select id=pvp>
         <option>Computador</option>
         <option>Jogador</option>
       </select> <br>
@@ -92,6 +94,7 @@
     <div id=derrota> 
       Derrota!
     </div>
-    
+    <script src="source.js" ></script>
+    <script src="request.js" ></script>
   </body>
 </html>
