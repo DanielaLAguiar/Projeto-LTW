@@ -39,13 +39,12 @@ instrucoes.onclick=this.showInstrucoes.bind(this);
 iniciarJogo.onclick=this.IniciarJogo.bind(this);
 desistir.onclick=this.terminarJogo.bind(this);
 
+
+
 function newUser() {
   nome=document.getElementById("autenticacao").elements["name"].value;  
   password=document.getElementById("autenticacao").elements["password"].value; 
   let req = register(nome,password);
-  if (!req.ok) {
-
-	}
   let thisUser = new User(nome, password);
   users.push(thisUser);
   login();
@@ -216,10 +215,15 @@ function IniciarJogo() {
     tabuleiro.style.display="flex";
     estado.style.display="block";
     terminar.style.display="none";
-    if(inicio.value=="Adversário") {
-      setTimeout(jogadaIA(), 250);
+    if(pvp.value=="Jogador") {
+      setUpMultiplayer(nCavidades.valueAsNumber, nSementes.valueAsNumber);
     }
-    jogo.play();
+    else if(pvp.value=="Computador") {
+      if(inicio.value=="Adversário") {
+        setTimeout(jogadaIA(), 250);
+      }
+      jogo.play();
+    } 
 }
 
 function vitoria(pontos1, pontos2) {
@@ -239,8 +243,6 @@ function derrota(pontos1, pontos2) {
   let text=document.createTextNode("DERROTA! Jogador 1: " + pontos1.toString(10) +" Jogador 2: " + pontos2.toString(10));
   classificacaoText.appendChild(text);
   msgDerrota.onclick=this.terminarJogo.bind(this);
-  
-  
 }
 
 function terminarJogo() {
@@ -362,21 +364,8 @@ async function serverError() {
 }
 
 async function notifyServer(i) {
-	let req = await notify(name, password, game, i);
+	let req = await notify(nome, password, game, i);
 	if (!req.ok) {
 		alert("Something went wrong");
 	}
-}
-
-function vitoria() {
-	let msg = "Jogador 1 venceu";
-	setTimeout(() => alert(msg), 500);
-}
-function derrota() {
-	let msg = "Jogador 2 venceu";
-	setTimeout(() => alert(msg), 500);
-}
-function empate() {
-	let msg = "Empate";
-	setTimeout(() => alert(msg), 500);
 }
