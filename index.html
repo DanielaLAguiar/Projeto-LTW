@@ -3,8 +3,7 @@
   <head>
     <meta charset="UTF-8">     
     <title>Mancala</title>
-    <link rel="stylesheet" type='text/css' href="./style.css" />
-    
+    <link rel="stylesheet" href="style.css">
   </head>
 
   <body>
@@ -20,9 +19,8 @@
       Nome de utilizador: <input type="text" name="name"> <br>
       Password: <input type="password" name="password"> <br>
       <input type="button" value="Novo utilizador" onclick="newUser()"></input>
-      <input type="button" value="Login" onclick="login()"></input>
+      <input type="button" value="Login" onclick="login()"></input> 
     </form>
-    
 
     <div class=popup id=terminar>
       <input type="button" id="logout" value="Logout" onclick="logout()">
@@ -94,8 +92,9 @@
     <div id=derrota> 
       Derrota!
     </div>
-    <script src="./source.js" ></script>
-    <script src="./index.js" ></script>
-    
+
+    <script src="source.js"></script>
+    <script src="request.js"></script>
+
   </body>
 </html>

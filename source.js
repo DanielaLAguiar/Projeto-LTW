@@ -20,8 +20,6 @@ const feij=document.createElement('span');
 const classificacaoText=document.getElementById("popClassificacao");
 feij.className='peca';
 
-
-
 const pvp=document.getElementById("pvp");
 let nome, password;
 let game, eventSrc, opponent, multiplayerStatus, leaveButton;
@@ -34,11 +32,12 @@ class User {
   }
 }
 
+let mancala;
+
 classificacao.onclick=this.showClassificacao.bind(this);
 instrucoes.onclick=this.showInstrucoes.bind(this);
 iniciarJogo.onclick=this.IniciarJogo.bind(this);
 desistir.onclick=this.terminarJogo.bind(this);
-
 
 function newUser() {
   nome=document.getElementById("autenticacao").elements["name"].value;  
@@ -51,7 +50,6 @@ function newUser() {
   users.push(thisUser);
   login();
 }
-
 
 function login() {  
   nome=document.getElementById("autenticacao").elements["name"].value;  
@@ -218,16 +216,10 @@ function IniciarJogo() {
     tabuleiro.style.display="flex";
     estado.style.display="block";
     terminar.style.display="none";
-    if(pvp.value=="Jogador") {
-      setUpMultiplayer(nCavidades.valueAsNumber, nSementes.valueAsNumber);
+    if(inicio.value=="Adversário") {
+      setTimeout(jogadaIA(), 250);
     }
-    else if (pvp.value="Computador") {
-      if(inicio.value=="Adversário") {
-        setTimeout(jogadaIA(), 250);
-      }
-    
-      jogo.play();
-    }
+    jogo.play();
 }
 
 function vitoria(pontos1, pontos2) {
@@ -247,6 +239,8 @@ function derrota(pontos1, pontos2) {
   let text=document.createTextNode("DERROTA! Jogador 1: " + pontos1.toString(10) +" Jogador 2: " + pontos2.toString(10));
   classificacaoText.appendChild(text);
   msgDerrota.onclick=this.terminarJogo.bind(this);
+  
+  
 }
 
 function terminarJogo() {
@@ -321,21 +315,68 @@ function jogadaIA() {
   }
 }
 
-async function setUpMultiplayer(cavidades, sementes) {
-	let req = await join(nome, password, cavidades, sementes);
+async function setUpMultiplayer(nCavidades, nSementes) {
+	let req = await join(nome, password, nCavidades, nSementes);
 	if (req.ok) {
 		let data = await req.json();
 		game = data.game;
-		multiplayerStatus.textContent = "Waiting for a player to join";
+		multiplayerStatus.textContent = "Há espera de adversário";
 		eventSrc = await update(nome, game, serverUpdate, serverError);
 	} else {
-		alert("An error ocurred while creating a game");
+		alert("Ocorreu um erro ao criar o jogo");
 	}
 }
 
+async function serverUpdate(e) {
+	let data = JSON.parse(e.data);
+	if (data.vencedor !== undefined) {
+		if (data.vencedor === null) {
+			if (data.tabuleiro !== undefined) empate();
+			else setTimeout(() => alert("Interrompido"), 500);
+		}
+		else if (data.vencedor === name)
+			vitoria()
+		else if (data.vencedor === opponent)
+			derrota()
+		multiplayerStatus.parentNode.removeChild(multiplayerStatus);
+		leaveButton.parentNode.removeChild(leaveButton);
+		multiplayerStatus = undefined;
+		leaveButton = undefined;
+		game = undefined;
+		opponent = undefined;
+		eventSrc.close();
+		eventSrc = undefined;
+	}
+	else {
+		//Jogar 
+	}
+}
+
+async function serverError() {
+	game = undefined;
+	opponent = undefined;
+	leftGame = false;
+	eventSrc.close()
+	eventSrc = undefined;
+	alert("Something went wrong");
+}
+
 async function notifyServer(i) {
-	let req = await notify(nome, password, game, i);
+	let req = await notify(name, password, game, i);
 	if (!req.ok) {
 		alert("Something went wrong");
 	}
+}
+
+function vitoria() {
+	let msg = "Jogador 1 venceu";
+	setTimeout(() => alert(msg), 500);
+}
+function derrota() {
+	let msg = "Jogador 2 venceu";
+	setTimeout(() => alert(msg), 500);
+}
+function empate() {
+	let msg = "Empate";
+	setTimeout(() => alert(msg), 500);
 }
