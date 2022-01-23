@@ -1,6 +1,7 @@
 const server = 'twserver.alunos.dcc.fc.up.pt';
 const port = 9040;
 
+
 async function request(func, init) {
     const url = `http://${server}:${port}/${func}`;
     const resp = await fetch(url, init);
@@ -15,6 +16,9 @@ async function register(name, password) {
             'password': password,
         })
     };
+
+
+
     const req = await request('register', init);
     return req;
 }
@@ -69,6 +73,9 @@ async function notify(name, password, game, move) {
             'move': move
         })
     };
+
+    
+
     let req = await request('notify', init);
     return req;
 }

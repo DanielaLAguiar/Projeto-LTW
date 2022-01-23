@@ -41,10 +41,15 @@ desistir.onclick=this.terminarJogo.bind(this);
 
 
 
-function newUser() {
+async function newUser() {
   nome=document.getElementById("autenticacao").elements["name"].value;  
   password=document.getElementById("autenticacao").elements["password"].value; 
   let req = register(nome,password);
+  if (req.ok) {
+		let data = await req.json();
+		game = data.game;
+	}
+
   let thisUser = new User(nome, password);
   users.push(thisUser);
   login();
@@ -322,7 +327,7 @@ async function setUpMultiplayer(nCavidades, nSementes) {
 	if (req.ok) {
 		let data = await req.json();
 		game = data.game;
-		multiplayerStatus.textContent = "Há espera de adversário";
+		multiplayerStatus.textContent = "À espera de adversário";
 		eventSrc = await update(nome, game, serverUpdate, serverError);
 	} else {
 		alert("Ocorreu um erro ao criar o jogo");
@@ -336,7 +341,7 @@ async function serverUpdate(e) {
 			if (data.tabuleiro !== undefined) empate();
 			else setTimeout(() => alert("Interrompido"), 500);
 		}
-		else if (data.vencedor === name)
+		else if (data.vencedor === nome)
 			vitoria()
 		else if (data.vencedor === opponent)
 			derrota()
